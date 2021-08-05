@@ -13,6 +13,6 @@ Feature: administrar en el proceso la autorizacion de cuentas
     Examples: Datos de autenticacion
       | url                                      | usuario        | contrasena | respuestaEsperada |
       | /Account/v1/Authorized | PruebaServicio | Prueba123* | 200               |
-      | /Account/v1/Authorized | PruebaServicio | Prueba123* | 404               |
+      | /Account/v1/Authorized | PruebaServicio | Prueba123* | 200               |
 
 

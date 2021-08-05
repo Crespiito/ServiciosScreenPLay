@@ -3,20 +3,14 @@ Feature: administrar el proceso de generacion de token, creacion, autenticacion,
   quiero administrar el proceso de generacion de token, creacion, autenticacion, consulta y eliminacion de cuentas
   para validar el consumo exitoso de un servicio
 
-  @ObtenerTokenDeFormaExitosa
-  Scenario Outline: Obtener token de forma exitosa
-    Given el usuario carga la informacion de la url <url>
-    When el ingresa los datos <usuario> y <contrasena> de una cuenta ya existente
-    Then el obtiene una respuesta de generacion de token exitosa <respuestaEsperada>
-    Examples: Datos de obtencion de token
-      | url                                         | usuario        | contrasena | respuestaEsperada |
-      | https://demoqa.com/Account/v1/GenerateToken | PruebaServicio | Prueba123* | 200               |
-
-  @ObtenerTokenDeFormaFallida
-  Scenario Outline: Obtener Token De Forma Fallida
-    Given el usuario carga la informacion de la url <url>
-    When el no envia los datos <usuario> y <contrasena>
-    Then el obtiene una respuesta de campos requeridos <respuestaEsperada>
-    Examples: Datos de obtencion de token
-      | url                                         | usuario | contrasena | respuestaEsperada |
-      | https://demoqa.com/Account/v1/GenerateToken |         |            | 400               |
+  @ObtenerToken
+  Scenario Outline: ObtenerToken exitosa de una cuenta
+    Given el usuario carga la informacion de la url
+      |url   | usuario   | contrasena   | respuestaEsperada |
+      |<url> | <usuario> | <contrasena> | <respuestaEsperada>|
+    When el ingresa los datos para Obtener Token
+    Then el obtiene una respuesta de generacion de token exitosa
+    Examples: Datos de autenticacion
+      | url                                      | usuario        | contrasena | respuestaEsperada |
+      | /Account/v1/GenerateToken | PruebaServicio | Prueba123* | 200               |
+      | /Account/v1/GenerateToken | PruebaServicio | Prueba123* | 200               |

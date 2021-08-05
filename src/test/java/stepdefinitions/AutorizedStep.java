@@ -5,9 +5,17 @@ package stepdefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.response.Response;
 import models.Request;
+import net.serenitybdd.core.Serenity;
+import net.serenitybdd.rest.SerenityRest;
+import net.serenitybdd.screenplay.GivenWhenThen;
 import net.serenitybdd.screenplay.rest.interactions.Post;
+import questions.BodyQuestion;
+import tasks.AutorizationTask;
+import tasks.ObtenerTokenTask;
 
+import static com.shazam.shazamcrest.matcher.Matchers.sameBeanAs;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
 
@@ -21,17 +29,32 @@ public class AutorizedStep {
     }
     @When("el ingresa los datos")
     public void elIngresaLosDatosPruebaServicioYPrueba123() {
-        Request requestAut = theActorInTheSpotlight().recall("request");
+        theActorInTheSpotlight().attemptsTo(AutorizationTask.autorizationTask());
 
-        theActorInTheSpotlight().attemptsTo(Post.to(requestAut.getUrl()).with(request -> request
-                .contentType("application/json; charset=utf-8")
-                .body(requestAut.getAuthorizationBody())
-                .relaxedHTTPSValidation()));
 
     }
     @Then("el obtiene una respuesta exitosa")
     public void elObtieneUnaRespuestaExitosa() {
         Request requestAut = theActorInTheSpotlight().recall("request");
         theActorInTheSpotlight().should(seeThatResponse("mensaje", response -> response.statusCode(Integer.parseInt(requestAut.getCode()))));
+    }
+
+    @When("el ingresa los datos para Obtener Token")
+    public void elIngresaLosDatosParaObtenerToken() {
+        theActorInTheSpotlight().attemptsTo(ObtenerTokenTask.autorizationTask());
+
+    }
+
+    @Then("el obtiene una respuesta de generacion de token exitosa")
+    public void elObtieneUnaRespuestaDeGeneracionDeTokenExitosa() {
+
+        Response response = SerenityRest.lastResponse();
+
+        theActorInTheSpotlight().should(GivenWhenThen.seeThat("validacion de respuestas", BodyQuestion.bodyQuestion(),sameBeanAs("{\n" +
+                "    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlBydWViYVNlcnZpY2lvIiwicGFzc3dvcmQiOiJQcnVlYmExMjMqIiwiaWF0IjoxNjI4MTY3MDExfQ.xw14PxUsM5h3jDMsuDMerWnkbgJR99NBkdAcUJQqFtA\",\n" +
+                "    \"expires\": \"2021-08-12T12:36:51.824Z\",\n" +
+                "    \"status\": \"Success\",\n" +
+                "    \"result\": \"User authorized successfully.\"\n" +
+                "}")));
     }
 }

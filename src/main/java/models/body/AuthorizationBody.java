@@ -1,27 +1,27 @@
 package models.body;
 
 public class AuthorizationBody {
-    String user;
-    String password;
+    String userName ;
+    String password ;
 
     public AuthorizationBody(String user, String password) {
-        this.user = user;
-        this.password = password;
+        this.userName  = user;
+        this.password  = password;
     }
 
     public String getUser() {
-        return user;
+        return userName ;
     }
 
     public void setUser(String user) {
-        this.user = user;
+        this.userName  = user;
     }
 
     public String getPassword() {
-        return password;
+        return password ;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password  = password;
     }
 }
