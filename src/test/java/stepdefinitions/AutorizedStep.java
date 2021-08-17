@@ -10,9 +10,11 @@ import models.Request;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.GivenWhenThen;
+import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.rest.interactions.Post;
 import questions.BodyQuestion;
 import tasks.AutorizationTask;
+import tasks.DeleteTask;
 import tasks.ObtenerTokenTask;
 
 import static com.shazam.shazamcrest.matcher.Matchers.sameBeanAs;
@@ -56,5 +58,15 @@ public class AutorizedStep {
                 "    \"status\": \"Success\",\n" +
                 "    \"result\": \"User authorized successfully.\"\n" +
                 "}")));
+    }
+
+    @Given("el usuario carga la informacion para la eliminacion")
+    public void elUsuarioCargaLaInformacionParaLaEliminacion() {
+
+    }
+
+    @When("se realiza la elimnacion")
+    public void seRealizaLaElimnacion() {
+        theActorInTheSpotlight().attemptsTo(Tasks.instrumented(DeleteTask.class));
     }
 }
