@@ -1,20 +1,50 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Introduction
+Construccion de pruebas automatizadas con el Patrón Screenplay de Serenity, Cucumber, Junit,
+Java y Gradle para probar una REST
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Para esta automatización se utilizan los siguientes servicios expuestos:
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+- URL  https://demoqa.com
+### Pruebas construidas
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+#### REST ####
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+- AutorizedRunner
+- DeleteRunner
+
+## Antes de descargar el repositorio
+
+- Java JDK 1.8
+- Gradle 3.2.0 o superior
+- GIT
+
+## Patrones de diseño utilizados
+
+- ### [Patron Serenity Screenplay](http://serenity-bdd.info/docs/articles/screenplay-tutorial.html)
+
+
+
+## Compilacion
+
+Ya descargado el proyecto, importarlo en el IDE de preferencia.
+
+Es importante compilar el proyecto para esto, ejecutar alguno de los siguientes comandos.
+Ejecutar por consola
+
+```
+gradle clean build -x test
+gradle compileJava
+```
+
+## Ejecución
+
+**Ejecución Todos los test**
+
+Para ejecutar todos los test del proyecto y generar el reporte puede usar.
+
+```
+gradle clean test aggregate
+```
+
+**NOTA:** El reporte generado de las pruebas se genera en la ruta `/target/site/serenity/index.html`
+
